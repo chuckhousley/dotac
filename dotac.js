@@ -12,23 +12,22 @@ rl.prompt();
 var char = String.fromCharCode;
 
 var RED = char(0x12),
-    YELLOW = char(0x14),
     ORANGE = char(0x1b),
-    GREEN1 = char(0x08),
+    YELLOW = char(0x14),
+    GREEN1 = char(0x0c),
     GREEN2 = char(0x10),
-    GREEN3 = char(0x11),
-    GREEN4 = char(0x15),
-    GREEN5 = char(0x18),
-    GREEN6 = char(0x0c),
+    GREEN3 = char(0x15),
+    GREEN4 = char(0x18),
     BLUE = char(0x19),
-    INDIGO = char(0x09),
-    VIOLET = char(0x19),
+    //INDIGO = char(0x09) indigo is not a creative color
+    VIOLET = char(0x16),
+    WHITE = char(0x08),
     MAGENTA = char(0x0e),
+    PINK = char(0x11),
     PURPLE = char(0x1a),
     SALMON = char(0x1c),
     GOLDENROD = char(0x1d),
-    GRAY = char(0x17),
-    BROWN = char(0x1b);
+    GRAY = char(0x17);
     
 
 rl.on('line', function(input) {
@@ -82,27 +81,31 @@ rl.on('line', function(input) {
             console.log("gray: " + message);
             copy(GRAY + message);
             break;
-        case 'brn':
-            console.log("brown: " + message);
-            copy(BROWN + message);
-            break;
         case 'weed':
+        var greens = [GREEN1, GREEN2, GREEN3, GREEN4];
+        var r = 0, j = 0, retmessage = '';
             if (message == '') {
                 console.log('dank meme loaded');
-                copy(GREEN1 + "420 BlAzE iT " + 
-                    BROWN + "===" + 
-                    ORANGE + "o " + 
-                    GRAY + "~~~"); 
-            } else {
-                console.log('kush: ' + message);
-                var greens = [GREEN1, GREEN2, GREEN3, GREEN4, GREEN5, GREEN6];
-                var r = 0, j = 0, retmessage = '';
+                message = "420 bLaZe iT ";
                 for (var i = 0; i < message.length; i++) {
                     retmessage += greens[r++] + message[i];
-                    if (r > 5) { r = 0; }
+                    if (r > 3) { r = 0; }
                 }
+                copy(retmessage + " " + 
+                    WHITE + "===" + 
+                    RED + "o " + 
+                    WHITE + "~~~"); 
+            } else {
+                console.log('kush: ' + message);
+                for (var i = 0; i < message.length; i++) {
+                    retmessage += greens[r++] + message[i];
+                    if (r > 3) { r = 0; }
+                }
+                copy(retmessage);
             }
             break;
+        case 'test':
+            
         case 'h':
             console.log("Available commands are:\n/r\n/o\n/y\n/g\n/b\n/i\n/v"
                     + "\n/gold\n/sal\n/gray\n/brn\n/weed"
@@ -114,11 +117,12 @@ rl.on('line', function(input) {
                 break;
             }
             console.log("rainbow: " + message);
-            var rainbow = [RED, ORANGE, YELLOW, GREEN1, BLUE, INDIGO, VIOLET];
+            var rainbow = [RED, ORANGE, YELLOW, GREEN1, BLUE, VIOLET];
             var r = 0, j = 0, retmessage = '';
             for (var i = 0; i < message.length; i++) {
-                retmessage += rainbow[r++] + message[i];
-                if (r > 6) { r = 0; }
+                retmessage += rainbow[r] + message[i];
+                if (message[i] != ' ') { r++; }
+                if (r > 5) { r = 0; }
             }
             copy(retmessage);
             break;
